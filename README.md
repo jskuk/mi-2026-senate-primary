@@ -29,6 +29,14 @@ precincts, El-Sayed ran better where Democrats lost ground (r = −0.25). Among 
 96% of precincts at or under 10% Arab ancestry the sign flips to +0.18. The pooled
 figure is produced entirely by 115 precincts holding 4.5% of the vote.
 
+**Education and income pulled in opposite directions.** Holding education roughly
+fixed, richer precincts favoured Stevens; holding income fixed, more educated
+precincts favoured El-Sayed. Among the most educated fifth of precincts he wins the
+poorest income band by 50 points and the richest by 3. This survives matching on
+race and age and excluding college towns — 18 of 18 matched jurisdiction pairs run
+the same way — though the gap shrinks from about 21 points to about 12 once age is
+held constant. See `edu_income_grid_R.png` and `code/income_check.py`.
+
 **The youth premium disappears in majority-Black precincts.** A linear Black × age
 interaction is null (−1.5, SE 64), but that is a functional-form artefact: the age
 gradient is +24 to +30 points across the first three Black-share bins and +4.8 in
@@ -43,7 +51,8 @@ strengthens it rather than explaining it.
 | --- | --- |
 | `index.html` | The interactive report |
 | `regression_table.md` | Six models, WLS by votes, SEs clustered by county |
-| `*_R.png` | Static figures (also available as PDF in the working repo) |
+| `*_R.png` | Static figures (PDFs in the working repo) |
+| `code/income_check.py` | Non-parametric check on the education/income result |
 | `code/` | Full pipeline: census parsing, block assignment, reallocation, figures, regressions |
 
 The precinct data file itself is not published here. Everything in `code/` rebuilds
