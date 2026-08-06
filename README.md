@@ -53,13 +53,16 @@ is the *more* educated of the two and more than twice as rich, and they voted 83
 points apart. `public_grid.png` is the same finding as a five-by-five grid with the
 jargon stripped out.
 
-**Young voters closed a quarter of the primary turnout gap — from a very low base.**
-The age skew of August-primary turnout barely moved across four Trump-era elections
-(the youngest fifth of precincts turned out at 0.54–0.56 of the oldest fifth's rate in
-2018, 2020, 2022 and 2024), then broke to 0.67 in 2026. But the youngest fifth still
-voted 11 points below the oldest. Everyone turned out more in 2026; the young simply
-rose faster, 1.41× against 1.15×. Voter-file rates for August 2024 show how deep the
-hole is: registered 65–74s voted at 47.5%, registered 20–24s at 8.0%.
+**Young precincts grew the fastest and still turn out the least.** Measured against
+the Democratic general-election vote, the youngest fifth of precincts converted 51% of
+their 2024 Harris voters into 2026 primary voters; the oldest fifth converted 61%.
+Measured against 2024 *primary* voters instead, the young look best — but that
+denominator is swollen in older, more Republican precincts by people who took a
+Republican ballot in Michigan's open primary. Both are true: young precincts grew
+fastest from the smallest base and still convert worst. Partisanship is not the whole
+story either — within precincts over 70% Democratic in 2024, conversion still falls
+from 59% in the oldest fifth to 47% in the youngest. Voter-file rates for August 2024
+show the depth of it: registered 65–74s voted at 47.5%, registered 20–24s at 8.0%.
 
 ## What's here
 
@@ -68,7 +71,7 @@ hole is: registered 65–74s voted at 47.5%, registered 20–24s at 8.0%.
 | `index.html` | The interactive report |
 | `regression_table.md` | Six models, WLS by votes, SEs clustered by county |
 | `public_places.png`, `public_grid.png` | Charts for a general audience |
-| `turnout_series_R.png` | August-primary turnout by age, 2018-2026 |
+| `dem_turnout_R.png` | Primary turnout by age, against the Democratic vote |
 | `*_R.png` | Analyst figures (PDFs in the working repo) |
 | `code/income_check.py` | Non-parametric check on the education/income result |
 | `code/` | Full pipeline: census parsing, block assignment, reallocation, figures, regressions |
