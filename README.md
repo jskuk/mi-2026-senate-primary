@@ -45,13 +45,22 @@ young share outside majority-Black precincts against +0.8 inside them
 (interaction −51.0, SE 19.3, p = 0.012). Dropping the ten largest college towns
 strengthens it rather than explaining it.
 
+## For a general audience
+
+Two charts written for readers rather than analysts. `public_places.png` names the
+towns — Ferndale and Birmingham sit seven miles apart on Woodward Avenue, Birmingham
+is the *more* educated of the two and more than twice as rich, and they voted 83
+points apart. `public_grid.png` is the same finding as a five-by-five grid with the
+jargon stripped out.
+
 ## What's here
 
 | Path | Contents |
 | --- | --- |
 | `index.html` | The interactive report |
 | `regression_table.md` | Six models, WLS by votes, SEs clustered by county |
-| `*_R.png` | Static figures (PDFs in the working repo) |
+| `public_places.png`, `public_grid.png` | Charts for a general audience |
+| `*_R.png` | Analyst figures (PDFs in the working repo) |
 | `code/income_check.py` | Non-parametric check on the education/income result |
 | `code/` | Full pipeline: census parsing, block assignment, reallocation, figures, regressions |
 
