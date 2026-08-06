@@ -63,6 +63,12 @@ an open primary and 47% of 2026 ballots in the oldest fifth were Republican, aga
 21% in the youngest. Voter-file rates for August 2024 show the depth of the hole —
 registered 65–74s voted at 47.5%, registered 20–24s at 8.0%.
 
+**It is the primary, not the electorate, that ages the vote.** In the November 2024
+general the youngest fifth of precincts turned out at 77% of the oldest fifth's rate.
+In the August 2024 primary that fell to 54%. Turnout drops for everyone in a primary —
+from 78% to 32% in the oldest precincts — but far further among the young, from 60%
+to 17%. The 2026 primary recovered about half of that extra penalty, to 0.67.
+
 ## What's here
 
 | Path | Contents |
@@ -71,6 +77,7 @@ registered 65–74s voted at 47.5%, registered 20–24s at 8.0%.
 | `regression_table.md` | Six models, WLS by votes, SEs clustered by county |
 | `public_places.png`, `public_grid.png` | Charts for a general audience |
 | `turnout_series_R.png` | August-primary turnout by age, 2018-2026 |
+| `gen_vs_primary_R.png` | General vs primary turnout by age |
 | `*_R.png` | Analyst figures (PDFs in the working repo) |
 | `code/income_check.py` | Non-parametric check on the education/income result |
 | `code/` | Full pipeline: census parsing, block assignment, reallocation, figures, regressions |
