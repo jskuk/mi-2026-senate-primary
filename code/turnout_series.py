@@ -1,5 +1,15 @@
 """August-primary turnout, 2018-2026, split by how young a precinct's registrants are.
 
+ALL BALLOTS in every year, including 2026. Earlier drafts had to compare all-party
+turnout in 2018-2024 against Democratic-only ballots in 2026, and worked around it by
+restricting to Democratic-leaning precincts. The county-PDF file supplies 2026
+Republican gubernatorial votes and reported poll-book ballot totals, so 2026 can now be
+counted the same way as every other year and the restriction is gone.
+
+That mattered: Michigan runs an open primary, and among these precincts 47% of 2026
+ballots in the oldest fifth were Republican against 21% in the youngest. Dividing
+Democratic-only 2026 ballots by registration flattered young precincts badly.
+
 Starts at 2018: the first Trump-era midterm primary, and also the earliest year whose
 L2 vote-history attribution is defensible (see the caveat below).
 
@@ -46,6 +56,20 @@ p = b.groupby('precinct_id', as_index=False)[num].sum()
 d = pd.read_csv(f'{BASE}/precinct_demographics/mi_precinct_demographics_2026.csv')
 r = d.merge(p, on='precinct_id', how='left')
 r = r[r.has_results & (r.votes_total >= 25) & (r.reg_all > 0)].copy()
+
+# 2026 total ballots, from the county-PDF compilation. Keep only rows whose measure is a
+# real reported poll-book count; the alternative is a valid-votes proxy that misses
+# undervotes, and mixing two definitions in one series is what this file exists to avoid.
+gop = pd.read_csv(f'{BASE}/mi_sen_dem_primary_2026_with_republican_turnout_2026-08-06.csv')
+# Keep any row with a turnout measure, not only reported poll-book counts. The stricter
+# filter would also drop Washtenaw and Ingham - Ann Arbor and East Lansing - which for an
+# age analysis is a worse problem than the proxy's missing undervotes. Reported-only
+# gives 0.61 rather than 0.66 on the headline ratio.
+gop = gop[(gop.geography_type == 'precinct') & gop.TOTAL_TURNOUT_MEASURE.notna()][
+          ['GEO_KEY', 'TOTAL_TURNOUT_MEASURE']]
+r = r.merge(gop, left_on='precinct_id', right_on='GEO_KEY', how='inner')
+print(f'restricted to {len(r)} precincts with a 2026 total-ballot count '
+      f'({r.votes_total.sum():,.0f} Democratic votes)')
 r['pct_reg_young'] = r[[f'reg_age_{a}' for a in YOUNG]].sum(axis=1) / r.reg_all
 print(f'{len(r)} precincts, {r.votes_total.sum():,.0f} votes in the 2026 primary\n')
 
@@ -57,7 +81,7 @@ def series(df, label):
         den = s.reg_all.sum()
         rows[k] = {y: s[c].sum() / den for c, y in AUG.items()}
         rows[k][2024] = s.voted_all.sum() / den
-        rows[k][2026] = s.votes_total.sum() / den
+        rows[k][2026] = s.TOTAL_TURNOUT_MEASURE.sum() / den   # ALL 2026 ballots
     t = pd.DataFrame(rows).T[[2018, 2020, 2022, 2024, 2026]]
     print(label)
     print('  share of 2024-registered voters who cast an August-primary ballot')
@@ -68,11 +92,11 @@ def series(df, label):
     print('  youngest / oldest ratio' + ''.join(f'{v:>8.2f} ' for v in ratio))
     return t, ratio
 
-t_all, ratio_all = series(r, 'ALL PRECINCTS  (2026 column is Democratic ballots only)')
+t_all, ratio_all = series(r, 'ALL PRECINCTS  - every year counts ALL primary ballots')
 print()
 h = r[r.pres24_dem2p > .70]
-t_dem, ratio_dem = series(h, f'HEAVILY DEMOCRATIC PRECINCTS ONLY, 2024 Dem two-party > 70%  '
-                             f'(n={len(h)}, {h.votes_total.sum():,.0f} votes)')
+t_dem, ratio_dem = series(h, f'Democratic-leaning precincts only, for comparison with the '
+                             f'earlier draft (n={len(h)})')
 
 def wc(x, y, w):
     m = x.notna() & y.notna(); x, y, w = x[m], y[m], w[m]
@@ -83,12 +107,12 @@ print('\nCorrelation of young-registrant share with each year\'s turnout, all pr
 for c, y in list(AUG.items()):
     print(f'  {y}: {wc(r[c]/r.reg_all, r.pct_reg_young, r.votes_total):+.3f}')
 print(f'  2024: {wc(r.voted_all/r.reg_all, r.pct_reg_young, r.votes_total):+.3f}')
-print(f'  2026: {wc(r.votes_total/r.reg_all, r.pct_reg_young, r.votes_total):+.3f}   '
-      '<- Democratic ballots only')
+print(f'  2026: {wc(r.TOTAL_TURNOUT_MEASURE/r.reg_all, r.pct_reg_young, r.votes_total):+.3f}')
 print('\nAnd with the 2026-vs-prior-year ratio:')
 for c, y in list(AUG.items()) + [('voted_all', 2024)]:
     v = r.votes_total / r[c].replace(0, np.nan)
-    print(f'  2026 / {y}: {wc(v, r.pct_reg_young, r.votes_total):+.3f}')
+    v2 = r.TOTAL_TURNOUT_MEASURE / r[c].replace(0, np.nan)
+    print(f'  2026 / {y}: {wc(v2, r.pct_reg_young, r.votes_total):+.3f}')
 
 import json
 YEARS = [2018, 2020, 2022, 2024, 2026]

@@ -15,7 +15,7 @@ BLU <- c("#104281","#1c5cab","#2a78d6","#5598e7","#86b6ef")   # oldest -> younge
 INK <- "#0b0b0b"; INK2 <- "#52514e"; MUT <- "#898781"; GRD <- "#e1e0d9"; SRF <- "#fcfcfb"
 ACC <- "#4a3aa7"
 
-long <- read_csv("../analysis/turnout_series_dem70.csv", show_col_types = FALSE) %>%
+long <- read_csv("../analysis/turnout_series_all.csv", show_col_types = FALSE) %>%
   rename(grp = 1) %>% pivot_longer(-grp, names_to = "year", values_to = "t") %>%
   mutate(year = as.integer(year),
          grp = factor(grp, levels = c("Q1 oldest","Q2","Q3","Q4","Q5 youngest")))
@@ -37,8 +37,8 @@ pA <- ggplot(long, aes(year, t, colour = grp, group = grp)) +
   scale_x_continuous(breaks = c(2018, 2020, 2022, 2024, 2026), limits = c(2017.7, 2028.6)) +
   scale_y_continuous(labels = percent_format(accuracy = 1), limits = c(.12, .40)) +
   labs(title = "Four primaries with the same age gap, then 2026",
-       subtitle = paste0("Voters divided by registered voters. Precincts grouped into fifths by the share\n",
-                         "of registrants aged 18-34. Democratic-leaning precincts only - see the note below."),
+       subtitle = paste0("ALL primary ballots divided by registered voters, every year including 2026.\n",
+                         "Precincts grouped into fifths by the share of registrants aged 18-34."),
        x = NULL, y = "Share of registrants who voted") +
   theme_minimal(base_size = 11) +
   theme(plot.background = element_rect(fill = SRF, colour = NA),
@@ -67,17 +67,17 @@ pB <- ggplot(rat, aes(year, r, colour = set, linetype = set, group = set)) +
   annotate("text", x = 2017.9, y = 1.05, label = "gap closed", hjust = 0, size = 3, colour = MUT) +
   geom_line(linewidth = 1.1) + geom_point(size = 2.3) +
   geom_text(aes(label = sprintf("%.2f", r),
-                vjust = ifelse(set == "All precincts", -1.25, 1.95)),
+                vjust = ifelse(set == "All precincts", -1.25, 1.9)),
             size = 3.05, fontface = "bold", show.legend = FALSE) +
-  scale_colour_manual(values = c("Democratic-leaning precincts" = ACC,
-                                 "All precincts" = MUT), name = NULL) +
-  scale_linetype_manual(values = c("Democratic-leaning precincts" = "solid",
-                                   "All precincts" = "22"), name = NULL) +
+  scale_colour_manual(values = c("Democratic-leaning precincts" = MUT,
+                                 "All precincts" = ACC), name = NULL) +
+  scale_linetype_manual(values = c("Democratic-leaning precincts" = "22",
+                                   "All precincts" = "solid"), name = NULL) +
   scale_x_continuous(breaks = c(2018, 2020, 2022, 2024, 2026), limits = c(2017.6, 2026.5)) +
   scale_y_continuous(limits = c(.4, 1.12), breaks = seq(.4, 1.0, .2)) +
   labs(title = "The youngest fifth's turnout, as a share of the oldest fifth's",
-       subtitle = paste0("Flat at 0.54-0.56 across four elections, then a break. The dashed line runs\n",
-                         "higher only because 2026 counts Democratic ballots and young precincts lean left."),
+       subtitle = paste0("Flat at 0.54-0.61 across four elections, then a break to 0.67. The dashed line\n",
+                         "restricts to Democratic-leaning precincts and lands in the same place."),
        x = NULL, y = "Youngest / oldest") +
   theme_minimal(base_size = 11) +
   theme(plot.background = element_rect(fill = SRF, colour = NA),
@@ -98,13 +98,14 @@ p <- pA + pB +
     title = "Young voters closed a quarter of Michigan's primary turnout gap",
     subtitle = paste0(
       "The age skew of August-primary turnout barely moved across four Trump-era elections. In 2026 it broke - but from a low base: ",
-      "the youngest fifth of\nprecincts still turned out 11 points below the oldest. Everyone voted more in 2026; the young simply ",
-      "rose faster, 1.41x against 1.15x."),
+      "the youngest fifth of\nprecincts still turned out 12 points below the oldest. Everyone voted more in 2026; the young simply ",
+      "rose faster, 1.46x against 1.18x."),
     caption = paste0(
       "Turnout is each year's voters divided by one fixed denominator (registered voters in the 2024 L2 file), so the series is ",
       "internally comparable; levels are not the rates reported at the time.\n",
-      "2018-2024 count ALL primary ballots; 2026 counts Democratic ballots only. Restricting to precincts that were over 70% Democratic in 2024 keeps that ",
-      "gap small - in Republican-leaning areas it would not, which is why the\ndashed all-precinct line in the right panel runs so much higher.\n",
+      "Every year counts ALL primary ballots. 2026 Republican gubernatorial votes and reported ballot totals come from county canvass PDFs, which cover 1,894 of the 2,857 ",
+      "analysis precincts - 65% of the Democratic primary vote.\nCoverage is a county-level pattern, and Oakland, Macomb, Kalamazoo and Calhoun are absent entirely. ",
+      "An independent check on the FULL precinct set, restricted instead to Democratic-leaning\nprecincts so that Democratic-only 2026 ballots stay comparable, gives the same answer: 0.54 in 2024 to 0.67 in 2026.\n",
       "Age is a precinct characteristic - the share of its registrants aged 18-34 - not a voter-level measure. Voter-level rates by ",
       "age bracket exist for 2024 only; there, registered 65-74s voted at 47.5%\nagainst 8.0% for 20-24s. L2 credits vote history to a ",
       "voter's address at the file snapshot rather than at the election, so attribution loosens for the earliest years.\n",
