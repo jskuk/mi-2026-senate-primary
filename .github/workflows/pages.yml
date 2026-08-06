@@ -12,8 +12,10 @@ permissions:
   pages: write
   id-token: write
 
+# Deliberately NOT the 'pages' group: the legacy pages-build-deployment workflow
+# still exists on this repo and was cancelling this job by sharing that group.
 concurrency:
-  group: pages
+  group: pages-actions-deploy
   cancel-in-progress: false
 
 jobs:
