@@ -98,10 +98,10 @@ p <- pA + pB + plot_layout(widths = c(1.35, 1)) +
   plot_annotation(
     title = "It is the primary, not the electorate, that ages the vote",
     subtitle = paste0(
-      "In November 2024 the youngest fifth of precincts turned out at 77% of the oldest fifth's rate. In the August 2024 primary that fell to 54%. ",
-      "Turnout drops for\neveryone in a primary - from 78% to 32% among the oldest precincts - but it drops much further among the young, from 60% to 17%."),
+      "In November 2024 the youngest fifth of precincts turned out at 78% of the oldest fifth's rate. In the August 2024 primary that fell to 55%. ",
+      "Turnout drops for\neveryone in a primary - from 79% to 32% among the oldest precincts - but it drops much further among the young, from 62% to 18%."),
     caption = paste0(
-      "1,894 precincts with a reported 2026 total-ballot count, 65% of the Democratic primary vote; Oakland, Macomb, Kalamazoo and Calhoun are absent. ",
+      "2,638 precincts with a 2026 total-ballot count, 94% of the Democratic primary vote; only five small counties are missing. ",
       "All three elections are divided by the\nsame denominator, registered voters in the 2024 L2 file. Every figure counts ALL ballots, both parties. ",
       "Age is a precinct characteristic - the share of its registrants aged 18-34 - not a voter-level\nmeasure. ",
       "Sources: L2 voter file via Redistricting Data Hub aggregated to 2020 census blocks; 2024 general results via RDH; 2026 results from Michigan county canvass reports."),

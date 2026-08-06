@@ -56,18 +56,18 @@ jargon stripped out.
 **Young voters closed a quarter of the primary turnout gap — from a very low base.**
 Counting *all* primary ballots in every year, the youngest fifth of precincts turned
 out at 0.54–0.61 of the oldest fifth's rate across 2018, 2020, 2022 and 2024, then
-0.67 in 2026. The youngest fifth still voted 12 points below the oldest. Everyone
-turned out more in 2026; the young simply rose faster, 1.46× against 1.18×.
+0.67 in 2026. The youngest fifth still voted 13 points below the oldest. Everyone
+turned out more in 2026; the young simply rose faster, 1.47× against 1.22×.
 Counting Democratic ballots alone would badly flatter young precincts: Michigan runs
 an open primary and 47% of 2026 ballots in the oldest fifth were Republican, against
 21% in the youngest. Voter-file rates for August 2024 show the depth of the hole —
 registered 65–74s voted at 47.5%, registered 20–24s at 8.0%.
 
 **It is the primary, not the electorate, that ages the vote.** In the November 2024
-general the youngest fifth of precincts turned out at 77% of the oldest fifth's rate.
-In the August 2024 primary that fell to 54%. Turnout drops for everyone in a primary —
-from 78% to 32% in the oldest precincts — but far further among the young, from 60%
-to 17%. The 2026 primary recovered about half of that extra penalty, to 0.67.
+general the youngest fifth of precincts turned out at 78% of the oldest fifth's rate.
+In the August 2024 primary that fell to 55%. Turnout drops for everyone in a primary —
+from 79% to 32% in the oldest precincts — but far further among the young, from 62%
+to 18%. The 2026 primary recovered about half of that extra penalty, to 0.67.
 
 ## What's here
 

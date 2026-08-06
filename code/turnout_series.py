@@ -60,7 +60,8 @@ r = r[r.has_results & (r.votes_total >= 25) & (r.reg_all > 0)].copy()
 # 2026 total ballots, from the county-PDF compilation. Keep only rows whose measure is a
 # real reported poll-book count; the alternative is a valid-votes proxy that misses
 # undervotes, and mixing two definitions in one series is what this file exists to avoid.
-gop = pd.read_csv(f'{BASE}/mi_sen_dem_primary_2026_with_republican_turnout_2026-08-06.csv')
+gop = pd.read_csv(f'{BASE}/mi_sen_dem_primary_2026_with_republican_turnout_'
+                  'priority_counties_2026-08-06.csv')
 # Keep any row with a turnout measure, not only reported poll-book counts. The stricter
 # filter would also drop Washtenaw and Ingham - Ann Arbor and East Lansing - which for an
 # age analysis is a worse problem than the proxy's missing undervotes. Reported-only

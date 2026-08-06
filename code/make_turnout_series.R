@@ -66,7 +66,7 @@ pB <- ggplot(rat, aes(year, r)) +
   scale_y_continuous(limits = c(.4, 1.12), breaks = seq(.4, 1.0, .2)) +
   labs(title = "The youngest fifth's turnout, as a share of the oldest fifth's",
        subtitle = paste0("Flat across four elections, then a break. Restricting instead to Democratic-leaning\n",
-                         "precincts on the full data lands in the same place, 0.56 to 0.68."),
+                         "precincts lands in the same place, 0.53 to 0.65."),
        x = NULL, y = "Youngest / oldest") +
   theme_minimal(base_size = 11) +
   theme(plot.background = element_rect(fill = SRF, colour = NA),
@@ -85,14 +85,14 @@ p <- pA + pB +
     title = "Young voters closed a quarter of Michigan's primary turnout gap",
     subtitle = paste0(
       "The age skew of August-primary turnout barely moved across four Trump-era elections. In 2026 it broke - but from a low base: ",
-      "the youngest fifth of\nprecincts still turned out 12 points below the oldest. Everyone voted more in 2026; the young simply ",
-      "rose faster, 1.46x against 1.18x."),
+      "the youngest fifth of\nprecincts still turned out 13 points below the oldest. Everyone voted more in 2026; the young simply ",
+      "rose faster, 1.47x against 1.22x."),
     caption = paste0(
       "Turnout is each year's voters divided by one fixed denominator (registered voters in the 2024 L2 file), so the series is ",
       "internally comparable; levels are not the rates reported at the time.\n",
-      "Every year counts ALL primary ballots. 2026 Republican gubernatorial votes and reported ballot totals come from county canvass PDFs, which cover 1,894 of the 2,857 ",
-      "analysis precincts - 65% of the Democratic primary vote.\nCoverage is a county-level pattern, and Oakland, Macomb, Kalamazoo and Calhoun are absent entirely. ",
-      "An independent check on the FULL precinct set, restricted instead to Democratic-leaning\nprecincts so that Democratic-only 2026 ballots stay comparable, gives the same answer: 0.54 in 2024 to 0.67 in 2026.\n",
+      "Every year counts ALL primary ballots. 2026 Republican gubernatorial votes and reported ballot totals come from county canvass PDFs, which cover 2,638 of the 2,864 ",
+      "analysis precincts - 94% of the Democratic primary vote.\nThe five counties still missing (Cass, Isabella, Lake, Leelanau, Roscommon) are small. ",
+      "An independent check on the FULL precinct set, restricted instead to Democratic-leaning\nprecincts so that Democratic-only 2026 ballots stay comparable, gives the same answer: 0.53 in 2024 to 0.65 in 2026.\n",
       "Age is a precinct characteristic - the share of its registrants aged 18-34 - not a voter-level measure. Voter-level rates by ",
       "age bracket exist for 2024 only; there, registered 65-74s voted at 47.5%\nagainst 8.0% for 20-24s. L2 credits vote history to a ",
       "voter's address at the file snapshot rather than at the election, so attribution loosens for the earliest years.\n",
