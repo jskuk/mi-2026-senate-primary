@@ -51,33 +51,22 @@ pA <- ggplot(long, aes(year, t, colour = grp, group = grp)) +
         plot.subtitle = element_text(colour = INK2, size = 9, lineheight = 1.4,
                                      margin = margin(b = 12)))
 
-rat <- bind_rows(
-  read_csv("../analysis/turnout_series_dem70.csv", show_col_types = FALSE) %>%
-    rename(grp = 1) %>% pivot_longer(-grp, names_to = "year", values_to = "t") %>%
-    group_by(year) %>% summarise(r = t[grp == "Q5 youngest"] / t[grp == "Q1 oldest"]) %>%
-    mutate(set = "Democratic-leaning precincts"),
-  read_csv("../analysis/turnout_series_all.csv", show_col_types = FALSE) %>%
-    rename(grp = 1) %>% pivot_longer(-grp, names_to = "year", values_to = "t") %>%
-    group_by(year) %>% summarise(r = t[grp == "Q5 youngest"] / t[grp == "Q1 oldest"]) %>%
-    mutate(set = "All precincts")) %>%
+rat <- read_csv("../analysis/turnout_series_all.csv", show_col_types = FALSE) %>%
+  rename(grp = 1) %>% pivot_longer(-grp, names_to = "year", values_to = "t") %>%
+  group_by(year) %>% summarise(r = t[grp == "Q5 youngest"]/t[grp == "Q1 oldest"]) %>%
   mutate(year = as.integer(year))
 
-pB <- ggplot(rat, aes(year, r, colour = set, linetype = set, group = set)) +
+pB <- ggplot(rat, aes(year, r)) +
   geom_hline(yintercept = 1, colour = MUT, linewidth = .4) +
   annotate("text", x = 2017.9, y = 1.05, label = "gap closed", hjust = 0, size = 3, colour = MUT) +
-  geom_line(linewidth = 1.1) + geom_point(size = 2.3) +
-  geom_text(aes(label = sprintf("%.2f", r),
-                vjust = ifelse(set == "All precincts", -1.25, 1.9)),
-            size = 3.05, fontface = "bold", show.legend = FALSE) +
-  scale_colour_manual(values = c("Democratic-leaning precincts" = MUT,
-                                 "All precincts" = ACC), name = NULL) +
-  scale_linetype_manual(values = c("Democratic-leaning precincts" = "22",
-                                   "All precincts" = "solid"), name = NULL) +
+  geom_line(linewidth = 1.3, colour = ACC) + geom_point(size = 2.8, colour = ACC) +
+  geom_text(aes(label = sprintf("%.2f", r)), vjust = -1.35, size = 3.4,
+            fontface = "bold", colour = ACC) +
   scale_x_continuous(breaks = c(2018, 2020, 2022, 2024, 2026), limits = c(2017.6, 2026.5)) +
   scale_y_continuous(limits = c(.4, 1.12), breaks = seq(.4, 1.0, .2)) +
   labs(title = "The youngest fifth's turnout, as a share of the oldest fifth's",
-       subtitle = paste0("Flat at 0.54-0.61 across four elections, then a break to 0.67. The dashed line\n",
-                         "restricts to Democratic-leaning precincts and lands in the same place."),
+       subtitle = paste0("Flat across four elections, then a break. Restricting instead to Democratic-leaning\n",
+                         "precincts on the full data lands in the same place, 0.56 to 0.68."),
        x = NULL, y = "Youngest / oldest") +
   theme_minimal(base_size = 11) +
   theme(plot.background = element_rect(fill = SRF, colour = NA),
@@ -86,12 +75,10 @@ pB <- ggplot(rat, aes(year, r, colour = set, linetype = set, group = set)) +
         panel.grid.major = element_line(colour = GRD, linewidth = .3),
         axis.text = element_text(colour = MUT, size = 9),
         axis.title = element_text(colour = INK2, size = 9.5),
-        legend.position = "top", legend.justification = "left",
-        legend.text = element_text(colour = INK2, size = 8.5),
-        legend.margin = margin(b = -4, l = -8),
+        legend.position = "none",
         plot.title = element_text(face = "bold", size = 12.5, colour = INK, margin = margin(b = 4)),
         plot.subtitle = element_text(colour = INK2, size = 9, lineheight = 1.4,
-                                     margin = margin(b = 8)))
+                                     margin = margin(b = 12)))
 
 p <- pA + pB +
   plot_annotation(

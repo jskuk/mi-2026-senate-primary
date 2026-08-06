@@ -242,7 +242,7 @@ table{border-collapse:collapse}
         <p class="pr">ALL primary ballots divided by registered voters, every year including 2026</p>
         <div class="plot"><svg id="tline"></svg></div></div>
       <div class="card" style="margin-top:0"><p class="ptitle">Youngest fifth &divide; oldest fifth</p>
-        <p class="pr">Flat at 0.54&ndash;0.61 for four elections, then a break to 0.67</p>
+        <p class="pr">Flat across four elections, then a break. The Democratic-leaning subset lands in the same place, 0.56 to 0.68</p>
         <div class="plot"><svg id="tratio"></svg></div></div>
     </div>
     <div class="card hidden" id="tbl-turnout"></div>
@@ -268,8 +268,8 @@ table{border-collapse:collapse}
       file), so the series is internally comparable; the levels are not the rates reported at the
       time. L2 credits vote history to a voter's address at the file snapshot rather than at the
       election, so attribution loosens for the earliest years &mdash; 2018 is the earliest year
-      worth reading. The two ratio lines now measure the same thing and land within a point of
-      each other, which is the useful check: two very different subsets, one answer.
+      worth reading. Restricting instead to Democratic-leaning precincts on the full data gives
+      0.56 to 0.68 &mdash; two very different subsets, one answer.
     </p>
   </section>
 
@@ -586,7 +586,9 @@ function lineChart(svgEl, cfg){
       hit.addEventListener('pointermove',show);
       hit.addEventListener('pointerleave',()=>tip.style.opacity=0);
     });
-    if(s.label) add('text',{x:xs(T.years.length-1)+9,y:ys(s.v[s.v.length-1])+4,
+    if(s.showAll) s.v.forEach((v,i)=>add('text',{x:xs(i),y:ys(v)-11,'text-anchor':'middle',
+      fill:s.colour,'font-size':11,'font-weight':670},v.toFixed(2)));
+    else if(s.label) add('text',{x:xs(T.years.length-1)+9,y:ys(s.v[s.v.length-1])+4,
       fill:s.colour,'font-size':11,'font-weight':660},s.label);
   });
 }
@@ -601,11 +603,9 @@ function drawTurnout(){
       label:i===0?'Oldest fifth':(i===4?'Youngest fifth':null)}))});
   lineChart(document.getElementById('tratio'),{
     lo:.40, hi:1.12, ticks:[.4,.6,.8,1.0], rule:1,
-    fmt:v=>v.toFixed(1), tip:v=>v.toFixed(2), rpad:64,
-    series:[{name:'All precincts', v:T.ratio_all, colour:cssv('--muted'), dash:true,
-             label:T.ratio_all[4].toFixed(2)},
-            {name:'Democratic-leaning precincts', v:T.ratio_dem, colour:cssv('--elsayed'),
-             label:T.ratio_dem[4].toFixed(2)}]});
+    fmt:v=>v.toFixed(1), tip:v=>v.toFixed(2), rpad:20,
+    series:[{name:'Youngest fifth / oldest fifth', v:T.ratio_all,
+             colour:cssv('--elsayed'), showAll:true}]});
 }
 document.getElementById('tbl-turnout').innerHTML=tb(
   'Share of 2024-registered voters who cast an August-primary ballot, Democratic-leaning precincts. '+
